@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f3e8e7">
+  <meta name="description" content="ROMANTIC16 文学人格探索：通过25—27道情境与风格题，理解你在自由、爱情、秩序与欲望之间更常保护什么。">
+  <title>ROMANTIC16｜文学人格探索</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23111827'/%3E%3Cpath d='M18 14c10 0 14 4 14 10 0-6 4-10 14-10v34c-10 0-14 3-14 8 0-5-4-8-14-8z' fill='%23f2e7cc' stroke='%23b9934e' stroke-width='2'/%3E%3Cpath d='M32 24c-5-7-2-13 3-17-1 6 7 8 2 17-1 2-3 4-5 6-1-3-1-4 0-6z' fill='%23841933'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="preload" href="./assets/fonts/romantic-serif-sc.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="./assets/fonts/cormorant.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" as="image" type="image/webp" imagesrcset="./assets/portraits/free-480.webp 480w, ./assets/portraits/free-960.webp 960w" imagesizes="(max-width: 620px) 100vw, 420px" fetchpriority="high">
+  <link rel="preload" href="./question_bank.json" as="fetch" crossorigin>
+  <link rel="modulepreload" href="./engine.mjs">
+  <link rel="modulepreload" href="./profiles.mjs">
+</head>
+<body data-view="intro">
+  <header class="site-header">
+    <a class="site-brand" href="./" aria-label="ROMANTIC16 首页">
+      <span class="brand-mark" aria-hidden="true">R</span>
+      <span>ROMANTIC16</span>
+    </a>
+    <span class="trial-label">文学人格探索 · 试测版</span>
+  </header>
+  <main id="app" tabindex="-1">
+    <section class="page-panel loading-card" role="status">
+      <span class="loading-mark" aria-hidden="true">R</span>
+      <p>正在打开问卷…</p>
+    </section>
+    <noscript><p class="noscript-note">请在浏览器中启用 JavaScript 后刷新，即可开始答题。</p></noscript>
+  </main>
+  <footer class="site-footer">
+    <span>文学原型式自我探索</span>
+    <span aria-hidden="true">✦</span>
+    <span>不用于诊断或甄选</span>
+  </footer>
+  <p id="announcer" class="sr-only" aria-live="polite" aria-atomic="true"></p>
+  <script type="module" src="./app.mjs"></script>
+</body>
+</html>

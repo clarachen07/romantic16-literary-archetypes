@@ -1,0 +1,27 @@
+Tool: built-in image_gen
+
+Create a finished high-resolution Chinese ROMANTIC16 personality poster, PORTRAIT 1536x2048. Exactly 16 cards in a strict 4 columns x 4 rows grid. Inspired by MBTI overview posters' clear geometric flat character illustrations and four color families, but use the ORIGINAL literary personalities below, NOT standard MBTI codes. Large, distinct, expressive European literary characters in angular flat-vector editorial style with period clothing, distinctive props, clean pastel card backgrounds, warm ivory page, crisp elegant readable Chinese typography. No photorealism.
+Header: "ROMANTIC16", large "16种文学人格", subtitle "在故事里，遇见自己".
+Each card: large character illustration taking up upper 60%, large bold Chinese type name, small English code, clear legible short Chinese description, then smaller literary character caption. No text overlaps. Every name and description must be copied EXACTLY. Four equal cards per row. Narrow regular gutters and ample outer margin. Whole poster, no wall mockup.
+ROW 1 coral/terracotta:
+不驯者 | FREE | 自己作主，活出自由。 | 印第安娜 — independent woman, flowing coat, pushing open a window, hand on hip.
+举旗者 | FIRE | 把信念化成共同的改变。 | 自由的女性寓言 — fully clothed strong woman lifting coral flag, striding forward.
+闯局者 | DARE | 先迈出一步，再找到答案。 | 达达尼昂 — young musketeer, feather hat, cape, boots, sheathed rapier, dynamic stepping pose.
+戏谑者 | PLAY | 用机智与玩心，打破沉闷。 | 伽弗洛什 — laughing street boy in cap and vest playfully tossing a ball.
+ROW 2 green/teal:
+赤心者 | LOVE | 真诚表达，期待情感回应。 | 爱斯梅拉达 — warm young woman in layered skirt holding tambourine.
+守誓者 | OATH | 认定之后，用行动守住承诺。 | 卡西莫多 — humble gentle strong bell keeper, asymmetric shoulders, holding bell rope and candle.
+托举者 | CARE | 看见困境，愿意伸手相助。 | 冉阿让 — bearded man reaching out kindly with bread basket.
+筑巢者 | HOME | 把平凡日子，过成可靠的归属。 | 热尔曼 — rural man holding bread and plant beside tiny cottage.
+ROW 3 blue/periwinkle:
+执律者 | RULE | 坚持一致标准，守护秩序。 | 沙威 — serious upright inspector in blue long coat and top hat holding law book.
+布局者 | PLAN | 看向长远，耐心安排每一步。 | 基督山伯爵 — elegant count in waistcoat moving chess piece beside map.
+面具师 | MASK | 读懂人心，灵活调整表达。 | 米莱迪 — sophisticated perceptive woman with masquerade half-mask beside face.
+解谜者 | MIND | 追问原理，拆解未知。 | 法里亚神父 — gray-bearded scholar with open manuscript and geometric compass.
+ROW 4 lilac/mauve:
+造境者 | MUSE | 把内心感受，化成真实创作。 | 康素爱萝 — expressive singer with music manuscript and music notes.
+漂泊者 | MIST | 追寻远方，也追问生活的意义。 | 勒内 — contemplative traveler with cloak and walking stick, small misty mountains.
+藏心者 | VEIL | 慢慢靠近，留给内心安全的空间。 | 卡米耶 — reserved woman holding closed diary near translucent curtain.
+尽兴者 | WINE | 珍惜此刻，让日常值得庆祝。 | 波尔托斯 — jovial stocky musketeer raising goblet beside fruit plate.
+Footer text "16种原型 · 16种看世界的方式" and "文学人格探索".
+All sixteen exact names, codes, sentences and captions must be visible, individually distinct illustrations, no omissions, no duplicates, no watermark. Modern editorial elegance, finished printable visual quality, text large enough to read easily.

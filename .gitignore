@@ -1,0 +1,20 @@
+# Local files and credentials
+.DS_Store
+node_modules/
+.env
+.env.*
+!.env.example
+**/.netlify/
+**/.edgeone/
+**/.openai/
+**/.sites-runtime/
+project.private.config.json
+*.log
+*.tar.gz
+*.zip
+romantic16-miniprogram/artifacts/
+
+# Original local reference copies; public equivalents use English names.
+/ROMANTIC16_问卷设计与实现_v0.1/
+/问卷设计方案.md
+/output/slides/romantic16-讲稿.html

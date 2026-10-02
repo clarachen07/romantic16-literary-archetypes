@@ -1,0 +1,17 @@
+<view class="page">
+  <view class="panel intro-panel">
+    <view class="hero"><image src="/assets/portraits/free.jpg" mode="aspectFill" class="hero-image"/><view class="hero-shade"></view><view class="hero-caption"><text class="french">L’âme romantique</text><text>在故事里，遇见自己</text></view></view>
+    <view class="intro-copy">
+      <view class="eyebrow">十六种文学原型 · 一次自我探索</view>
+      <view class="wordmark">Romantic<text class="sup">16</text></view>
+      <view class="lede serif">当自由、爱情、秩序与欲望不能兼得时，你会替谁辩护？</view>
+      <view class="guidance muted"><view>请回答真实的你，而不是理想中的你。</view><view>参考最近半年大多数时候的自己。</view></view>
+      <button class="primary" bindtap="begin" hover-class="pressed">{{hasProgress ? (complete ? '查看我的画像' : '继续我的故事') : '翻开我的故事'}} <text class="arrow">↗</text></button>
+      <view class="time muted">25—27题 · 约3—5分钟</view>
+      <button wx:if="hasProgress" class="text-button" bindtap="reset">清除本机记录，重新开始</button>
+    </view>
+    <view class="notes"><view><text class="serif">双层画像</text><text>文学原型描述动机，连续特质描述表达方式。</text></view><view><text class="serif">允许不确定</text><text>结果可能呈现单一、双原型或分散倾向。</text></view><view><text class="serif">不作诊断</text><text>用于自我理解，不评价人格高低。适合18岁以上读者。</text></view></view>
+  </view>
+  <view class="privacy">答案仅保存在本机，不上传。可随时清除。</view>
+  <view class="footer">文学原型式自我探索 · 试测版</view>
+</view>

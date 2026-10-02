@@ -1,0 +1,4 @@
+Tool: built-in image_gen
+Input: romantic16-4x4-poster.png
+
+Remove only the subtitle “在故事里，遇见自己” from the top center of the attached poster, immediately below “16种文学人格”, at about 51% x and 8.1% y. Seamlessly restore the ivory paper background under those letters. Preserve the horizontal rules on either side. Keep the original image size, all illustrations, all other text, all colors, and every other part unchanged. No rearrangement. Leave blank space where the subtitle was.

@@ -1,0 +1,11 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {execFileSync} from 'node:child_process';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+execFileSync(process.execPath,[path.join(root,'tests/check.mjs')],{cwd:root,stdio:'inherit'});
+const output=path.join(root,'artifacts');
+fs.mkdirSync(output,{recursive:true});
+const archive=path.join(output,`romantic16-miniprogram-${Date.now()}.zip`);
+execFileSync('zip',['-q','-r',archive,'miniprogram','project.config.json','README.md','package.json','scripts','tests','.gitignore'],{cwd:root});
+console.log(archive);

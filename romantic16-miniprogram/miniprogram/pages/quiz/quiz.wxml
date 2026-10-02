@@ -1,0 +1,22 @@
+<view class="page">
+  <view wx:if="error" class="panel error"><view class="error-title serif">暂时无法继续</view><view>{{error}}</view><button class="primary" bindtap="home">返回首页</button></view>
+  <view wx:elif="question" class="panel">
+    <view class="row"><view><view class="eyebrow">{{question.act}}</view><view class="sequence muted">第 {{question.sequence}} 题</view></view><text class="count">{{question.count}}</text></view>
+    <view class="progress"><view style="width:{{question.progress}}%"></view></view>
+    <view class="kicker muted">{{question.kicker}}</view>
+    <view class="question-title serif">{{question.title}}</view>
+    <view wx:if="question.kind === 'core'">
+      <view class="steps"><text class="{{!question.selectingWorst ? 'active' : ''}}">1 · 最像</text><view></view><text class="{{question.selectingWorst ? 'active' : ''}}">2 · 最不像</text></view>
+      <view class="instruction muted">{{question.selectingWorst ? '现在，从剩下三项中选择最不像你的做法。' : '先选择最像你通常做法的一项。'}}</view>
+    </view>
+    <view wx:elif="question.kind === 'adaptive'" class="instruction muted">请选择更接近你通常反应的一项。</view>
+    <view class="options">
+      <button wx:for="{{question.options}}" wx:key="id" class="choice {{item.selected ? 'selected' : ''}} {{!item.letter ? 'equal' : ''}}" data-value="{{item.id}}" bindtap="choose" hover-class="pressed" hover-stay-time="0" aria-label="{{item.text}}" aria-pressed="{{item.selected || false}}">
+        <text wx:if="item.letter" class="letter">{{item.letter}}</text><view class="choice-copy"><view>{{item.text}}</view><text wx:if="item.selected" class="chosen-label">已选为最像</text></view>
+      </button>
+    </view>
+    <button wx:if="question.selectingWorst" class="text-button revise" bindtap="revise">重新选择“最像”</button>
+    <view class="question-actions"><button class="text-button" bindtap="back">← 返回</button><text wx:if="question.kind === 'adaptive'" class="route-note muted">追问会根据前面的选择变化</text></view>
+  </view>
+  <view class="privacy">{{storageWarning ? '本机存储不可用，退出后进度可能丢失。' : '答案仅保存在本机，不上传。'}}</view>
+</view>

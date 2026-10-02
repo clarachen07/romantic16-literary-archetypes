@@ -1,0 +1,590 @@
+{
+  "desktop": [
+    {
+      "size": "1920x1080",
+      "slide": 1,
+      "bad": [],
+      "images": true,
+      "width": 1920,
+      "viewport": 1920
+    },
+    {
+      "size": "1920x1080",
+      "slide": 2,
+      "bad": [],
+      "images": true,
+      "width": 1920,
+      "viewport": 1920
+    },
+    {
+      "size": "1920x1080",
+      "slide": 3,
+      "bad": [],
+      "images": true,
+      "width": 1920,
+      "viewport": 1920
+    },
+    {
+      "size": "1920x1080",
+      "slide": 4,
+      "bad": [],
+      "images": true,
+      "width": 1920,
+      "viewport": 1920
+    },
+    {
+      "size": "1920x1080",
+      "slide": 5,
+      "bad": [],
+      "images": true,
+      "width": 1920,
+      "viewport": 1920
+    },
+    {
+      "size": "1920x1080",
+      "slide": 6,
+      "bad": [],
+      "images": true,
+      "width": 1920,
+      "viewport": 1920
+    },
+    {
+      "size": "1920x1080",
+      "slide": 7,
+      "bad": [],
+      "images": true,
+      "width": 1920,
+      "viewport": 1920
+    },
+    {
+      "size": "1920x1080",
+      "slide": 8,
+      "bad": [],
+      "images": true,
+      "width": 1920,
+      "viewport": 1920
+    },
+    {
+      "size": "1920x1080",
+      "slide": 9,
+      "bad": [],
+      "images": true,
+      "width": 1920,
+      "viewport": 1920
+    },
+    {
+      "size": "1920x1080",
+      "slide": 10,
+      "bad": [],
+      "images": true,
+      "width": 1920,
+      "viewport": 1920
+    },
+    {
+      "size": "1920x1080",
+      "slide": 11,
+      "bad": [],
+      "images": true,
+      "width": 1920,
+      "viewport": 1920
+    },
+    {
+      "size": "1920x1080",
+      "slide": 12,
+      "bad": [],
+      "images": true,
+      "width": 1920,
+      "viewport": 1920
+    },
+    {
+      "size": "1920x1080",
+      "slide": 13,
+      "bad": [],
+      "images": true,
+      "width": 1920,
+      "viewport": 1920
+    },
+    {
+      "size": "1920x1080",
+      "slide": 14,
+      "bad": [],
+      "images": true,
+      "width": 1920,
+      "viewport": 1920
+    },
+    {
+      "size": "1920x1080",
+      "slide": 15,
+      "bad": [],
+      "images": true,
+      "width": 1920,
+      "viewport": 1920
+    },
+    {
+      "size": "1920x1080",
+      "slide": 16,
+      "bad": [],
+      "images": true,
+      "width": 1920,
+      "viewport": 1920
+    },
+    {
+      "size": "1920x1080",
+      "slide": 17,
+      "bad": [],
+      "images": true,
+      "width": 1920,
+      "viewport": 1920
+    },
+    {
+      "size": "1920x1080",
+      "slide": 18,
+      "bad": [],
+      "images": true,
+      "width": 1920,
+      "viewport": 1920
+    },
+    {
+      "size": "1920x1080",
+      "slide": 19,
+      "bad": [],
+      "images": true,
+      "width": 1920,
+      "viewport": 1920
+    },
+    {
+      "size": "1920x1080",
+      "slide": 20,
+      "bad": [],
+      "images": true,
+      "width": 1920,
+      "viewport": 1920
+    },
+    {
+      "size": "1920x1080",
+      "slide": 21,
+      "bad": [],
+      "images": true,
+      "width": 1920,
+      "viewport": 1920
+    },
+    {
+      "size": "1920x1080",
+      "slide": 22,
+      "bad": [],
+      "images": true,
+      "width": 1920,
+      "viewport": 1920
+    },
+    {
+      "size": "1920x1080",
+      "slide": 23,
+      "bad": [],
+      "images": true,
+      "width": 1920,
+      "viewport": 1920
+    },
+    {
+      "size": "1920x1080",
+      "slide": 24,
+      "bad": [],
+      "images": true,
+      "width": 1920,
+      "viewport": 1920
+    },
+    {
+      "size": "1920x1080",
+      "slide": 25,
+      "bad": [],
+      "images": true,
+      "width": 1920,
+      "viewport": 1920
+    },
+    {
+      "size": "1920x1080",
+      "slide": 26,
+      "bad": [],
+      "images": true,
+      "width": 1920,
+      "viewport": 1920
+    },
+    {
+      "size": "1366x768",
+      "slide": 1,
+      "bad": [],
+      "images": true,
+      "width": 1366,
+      "viewport": 1366
+    },
+    {
+      "size": "1366x768",
+      "slide": 2,
+      "bad": [],
+      "images": true,
+      "width": 1366,
+      "viewport": 1366
+    },
+    {
+      "size": "1366x768",
+      "slide": 3,
+      "bad": [],
+      "images": true,
+      "width": 1366,
+      "viewport": 1366
+    },
+    {
+      "size": "1366x768",
+      "slide": 4,
+      "bad": [],
+      "images": true,
+      "width": 1366,
+      "viewport": 1366
+    },
+    {
+      "size": "1366x768",
+      "slide": 5,
+      "bad": [],
+      "images": true,
+      "width": 1366,
+      "viewport": 1366
+    },
+    {
+      "size": "1366x768",
+      "slide": 6,
+      "bad": [],
+      "images": true,
+      "width": 1366,
+      "viewport": 1366
+    },
+    {
+      "size": "1366x768",
+      "slide": 7,
+      "bad": [],
+      "images": true,
+      "width": 1366,
+      "viewport": 1366
+    },
+    {
+      "size": "1366x768",
+      "slide": 8,
+      "bad": [],
+      "images": true,
+      "width": 1366,
+      "viewport": 1366
+    },
+    {
+      "size": "1366x768",
+      "slide": 9,
+      "bad": [],
+      "images": true,
+      "width": 1366,
+      "viewport": 1366
+    },
+    {
+      "size": "1366x768",
+      "slide": 10,
+      "bad": [],
+      "images": true,
+      "width": 1366,
+      "viewport": 1366
+    },
+    {
+      "size": "1366x768",
+      "slide": 11,
+      "bad": [],
+      "images": true,
+      "width": 1366,
+      "viewport": 1366
+    },
+    {
+      "size": "1366x768",
+      "slide": 12,
+      "bad": [],
+      "images": true,
+      "width": 1366,
+      "viewport": 1366
+    },
+    {
+      "size": "1366x768",
+      "slide": 13,
+      "bad": [],
+      "images": true,
+      "width": 1366,
+      "viewport": 1366
+    },
+    {
+      "size": "1366x768",
+      "slide": 14,
+      "bad": [],
+      "images": true,
+      "width": 1366,
+      "viewport": 1366
+    },
+    {
+      "size": "1366x768",
+      "slide": 15,
+      "bad": [],
+      "images": true,
+      "width": 1366,
+      "viewport": 1366
+    },
+    {
+      "size": "1366x768",
+      "slide": 16,
+      "bad": [],
+      "images": true,
+      "width": 1366,
+      "viewport": 1366
+    },
+    {
+      "size": "1366x768",
+      "slide": 17,
+      "bad": [],
+      "images": true,
+      "width": 1366,
+      "viewport": 1366
+    },
+    {
+      "size": "1366x768",
+      "slide": 18,
+      "bad": [],
+      "images": true,
+      "width": 1366,
+      "viewport": 1366
+    },
+    {
+      "size": "1366x768",
+      "slide": 19,
+      "bad": [],
+      "images": true,
+      "width": 1366,
+      "viewport": 1366
+    },
+    {
+      "size": "1366x768",
+      "slide": 20,
+      "bad": [],
+      "images": true,
+      "width": 1366,
+      "viewport": 1366
+    },
+    {
+      "size": "1366x768",
+      "slide": 21,
+      "bad": [],
+      "images": true,
+      "width": 1366,
+      "viewport": 1366
+    },
+    {
+      "size": "1366x768",
+      "slide": 22,
+      "bad": [],
+      "images": true,
+      "width": 1366,
+      "viewport": 1366
+    },
+    {
+      "size": "1366x768",
+      "slide": 23,
+      "bad": [],
+      "images": true,
+      "width": 1366,
+      "viewport": 1366
+    },
+    {
+      "size": "1366x768",
+      "slide": 24,
+      "bad": [],
+      "images": true,
+      "width": 1366,
+      "viewport": 1366
+    },
+    {
+      "size": "1366x768",
+      "slide": 25,
+      "bad": [],
+      "images": true,
+      "width": 1366,
+      "viewport": 1366
+    },
+    {
+      "size": "1366x768",
+      "slide": 26,
+      "bad": [],
+      "images": true,
+      "width": 1366,
+      "viewport": 1366
+    }
+  ],
+  "mobile": [
+    {
+      "slide": 1,
+      "width": 406,
+      "viewport": 406,
+      "images": true
+    },
+    {
+      "slide": 2,
+      "width": 390,
+      "viewport": 390,
+      "images": true
+    },
+    {
+      "slide": 3,
+      "width": 390,
+      "viewport": 390,
+      "images": true
+    },
+    {
+      "slide": 4,
+      "width": 390,
+      "viewport": 390,
+      "images": true
+    },
+    {
+      "slide": 5,
+      "width": 390,
+      "viewport": 390,
+      "images": true
+    },
+    {
+      "slide": 6,
+      "width": 390,
+      "viewport": 390,
+      "images": true
+    },
+    {
+      "slide": 7,
+      "width": 627,
+      "viewport": 627,
+      "images": true
+    },
+    {
+      "slide": 8,
+      "width": 390,
+      "viewport": 390,
+      "images": true
+    },
+    {
+      "slide": 9,
+      "width": 390,
+      "viewport": 390,
+      "images": true
+    },
+    {
+      "slide": 10,
+      "width": 390,
+      "viewport": 390,
+      "images": true
+    },
+    {
+      "slide": 11,
+      "width": 390,
+      "viewport": 390,
+      "images": true
+    },
+    {
+      "slide": 12,
+      "width": 390,
+      "viewport": 390,
+      "images": true
+    },
+    {
+      "slide": 13,
+      "width": 390,
+      "viewport": 390,
+      "images": true
+    },
+    {
+      "slide": 14,
+      "width": 390,
+      "viewport": 390,
+      "images": true
+    },
+    {
+      "slide": 15,
+      "width": 390,
+      "viewport": 390,
+      "images": true
+    },
+    {
+      "slide": 16,
+      "width": 390,
+      "viewport": 390,
+      "images": true
+    },
+    {
+      "slide": 17,
+      "width": 390,
+      "viewport": 390,
+      "images": true
+    },
+    {
+      "slide": 18,
+      "width": 390,
+      "viewport": 390,
+      "images": true
+    },
+    {
+      "slide": 19,
+      "width": 390,
+      "viewport": 390,
+      "images": true
+    },
+    {
+      "slide": 20,
+      "width": 390,
+      "viewport": 390,
+      "images": true
+    },
+    {
+      "slide": 21,
+      "width": 390,
+      "viewport": 390,
+      "images": true
+    },
+    {
+      "slide": 22,
+      "width": 390,
+      "viewport": 390,
+      "images": true
+    },
+    {
+      "slide": 23,
+      "width": 390,
+      "viewport": 390,
+      "images": true
+    },
+    {
+      "slide": 24,
+      "width": 390,
+      "viewport": 390,
+      "images": true
+    },
+    {
+      "slide": 25,
+      "width": 390,
+      "viewport": 390,
+      "images": true
+    },
+    {
+      "slide": 26,
+      "width": 390,
+      "viewport": 390,
+      "images": true
+    }
+  ],
+  "errors": 0,
+  "networkRequests": [],
+  "interaction": "passed",
+  "speaker": "passed",
+  "print": "generated",
+  "timing": {
+    "spokenRehearsalSeconds": 623.758549,
+    "method": "macOS Chinese speech synthesis, Flo Chinese China mainland, rate 180; used only for timing verification",
+    "suggestedSlideSeconds": 730,
+    "classroomResponseReserveSeconds": 60,
+    "note": "Synthetic read timing is a rehearsal estimate, not a measurement of the human presenter."
+  }
+}

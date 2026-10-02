@@ -1,0 +1,238 @@
+/** Romantic16 v0.1: deterministic, unvalidated preference-matching prototype.
+ * No external dependencies. Works in modern browsers and Node.js.
+ * Scores are relative choice utilities, NOT diagnosis, percentile, or type probability.
+ * Keep question_bank.json and this engine versioned together.
+ */
+const DIMENSIONS = ['E', 'A', 'C', 'N', 'O'];
+const ANSWERS = new Set(['a', 'b', 'equal', 'neither']);
+
+function hash(text) {
+  let h = 2166136261;
+  for (const ch of text) { h ^= ch.codePointAt(0); h = Math.imul(h, 16777619); }
+  return h >>> 0;
+}
+function logSumExp(xs) {
+  const m = Math.max(...xs);
+  return m + Math.log(xs.reduce((s, x) => s + Math.exp(x - m), 0));
+}
+function sigmoid(x) { return x >= 0 ? 1 / (1 + Math.exp(-x)) : Math.exp(x) / (1 + Math.exp(x)); }
+function softplus(x) { return Math.max(x, 0) + Math.log1p(Math.exp(-Math.abs(x))); }
+function pairKey(a, b) { return [a, b].sort().join('|'); }
+function copyInput(input) { return {anchors: input.anchors ?? {}, core: input.core ?? {}, adaptive: input.adaptive ?? []}; }
+function assertSeed(seed) { if (typeof seed !== 'string' || seed.length === 0) throw new Error('Pass a nonempty per-session random seed.'); }
+
+export function validate(bank, input) {
+  const types = new Set(bank.types.map(t => t.code));
+  const knownAnchors = new Set(bank.anchors.map(q => q.id));
+  const knownCore = new Set(bank.core_scenes.map(q => q.id));
+  for (const [id, v] of Object.entries(input.anchors ?? {})) {
+    if (!knownAnchors.has(id)) throw new Error(`Unknown anchor ${id}`);
+    if (v !== null && (!Number.isInteger(v) || v < 1 || v > 5)) throw new Error(`Invalid anchor response ${id}`);
+  }
+  for (const [id, answer] of Object.entries(input.core ?? {})) {
+    if (!knownCore.has(id)) throw new Error(`Unknown core scene ${id}`);
+    if (answer === null) continue;
+    const options = bank.core_scenes.find(q => q.id === id).options.map(o => o.type);
+    if (!answer || !options.includes(answer.best) || !options.includes(answer.worst) || answer.best === answer.worst) {
+      throw new Error(`Invalid best/worst response for ${id}`);
+    }
+  }
+  const seen = new Set();
+  const adaptive = input.adaptive ?? [];
+  if (!Array.isArray(adaptive) || adaptive.length > bank.count.adaptive_max) throw new Error('Invalid adaptive response count');
+  for (const q of adaptive) {
+    if (!types.has(q.a) || !types.has(q.b) || q.a === q.b || !['contrast', 'behavior'].includes(q.format) || !ANSWERS.has(q.answer)) {
+      throw new Error('Invalid adaptive response');
+    }
+    const k = `${pairKey(q.a, q.b)}|${q.format}`;
+    if (seen.has(k)) throw new Error('The same pair and format must not be repeated');
+    seen.add(k);
+  }
+}
+
+export function scoreTraits(bank, input) {
+  validate(bank, input);
+  const out = {};
+  for (const d of DIMENSIONS) {
+    const xs = bank.anchors.filter(q => q.dimension === d).map(q => {
+      const x = input.anchors?.[q.id];
+      return x == null ? null : q.key === -1 ? 6 - x : x;
+    }).filter(x => x !== null);
+    const mean = xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : null;
+    out[d] = {n: xs.length, usable: xs.length >= 2, mean,
+      position: xs.length >= 2 ? (mean - 1) * 25 : null,
+      description: xs.length < 2 ? '信息不足' : mean >= 11 / 3 ? '偏向高端' : mean <= 7 / 3 ? '偏向低端' : '居中／情境依赖'};
+  }
+  return out;
+}
+
+/** Convex penalized sequential best-then-worst logit objective.
+ * Ridge fixes location and finite-sample extremes. No trait-to-type stereotypes.
+ */
+export function objective(bank, input, u) {
+  const codes = bank.types.map(t => t.code);
+  const index = Object.fromEntries(codes.map((x, i) => [x, i]));
+  const p = bank.parameters;
+  let value = p.ridge_lambda * u.reduce((s, v) => s + v * v, 0) / 2;
+  const grad = u.map(x => p.ridge_lambda * x);
+  for (const q of bank.core_scenes) {
+    const a = input.core?.[q.id];
+    if (a == null) continue;
+    const ids = q.options.map(o => index[o.type]);
+    const best = index[a.best], worst = index[a.worst];
+    const lb = logSumExp(ids.map(i => u[i]));
+    value += p.core_weight * (lb - u[best]);
+    for (const i of ids) grad[i] += p.core_weight * Math.exp(u[i] - lb);
+    grad[best] -= p.core_weight;
+    const remaining = ids.filter(i => i !== best);
+    const lw = logSumExp(remaining.map(i => -u[i]));
+    value += p.core_weight * (lw + u[worst]);
+    for (const i of remaining) grad[i] -= p.core_weight * Math.exp(-u[i] - lw);
+    grad[worst] += p.core_weight;
+  }
+  for (const q of input.adaptive ?? []) {
+    if (q.answer === 'neither') continue;
+    const a = index[q.a], b = index[q.b], diff = u[a] - u[b];
+    const r = q.answer === 'a' ? 1 : q.answer === 'b' ? 0 : 0.5;
+    // Equal responses are a weak symmetric preference penalty, not a calibrated ordinal model.
+    const w = p.adaptive_weight * (q.answer === 'equal' ? p.equal_response_weight : 1);
+    value += w * (softplus(diff) - r * diff);
+    const g = w * (sigmoid(diff) - r);
+    grad[a] += g; grad[b] -= g;
+  }
+  return {value, grad};
+}
+
+export function estimate(bank, rawInput, seed) {
+  assertSeed(seed);
+  const input = copyInput(rawInput); validate(bank, input);
+  let u = Array(bank.types.length).fill(0), iteration = 0, converged = false;
+  // A categorical softmax covariance has spectral norm <= 1/2.
+  // Each core block has two softmax choices; each binary pair contributes <= 1/2.
+  // This conservative fixed step avoids floating-point Armijo stagnation near the optimum.
+  const nCore = bank.core_scenes.filter(q => input.core[q.id] != null).length;
+  const nPair = input.adaptive.filter(q => q.answer !== 'neither').length;
+  const lipschitz = bank.parameters.ridge_lambda + bank.parameters.core_weight * nCore +
+    0.5 * bank.parameters.adaptive_weight * nPair;
+  const step = 1 / lipschitz;
+  for (; iteration < 1600; iteration++) {
+    const f = objective(bank, input, u);
+    if (Math.hypot(...f.grad) < 1e-7) { converged = true; break; }
+    u = u.map((x, i) => x - step * f.grad[i]);
+  }
+  if (!converged) throw new Error('Optimization did not converge');
+  const ranking = bank.types.map((t, i) => ({type: t.code, score: u[i]}));
+  const eps = bank.parameters.tie_epsilon;
+  ranking.sort((a, b) => Math.abs(a.score - b.score) > eps ? b.score - a.score : hash(`${seed}|${a.type}`) - hash(`${seed}|${b.type}`));
+  return {ranking, utilities: Object.fromEntries(ranking.map(x => [x.type, x.score])), iterations: iteration,
+    objective: objective(bank, input, u).value, gradientNorm: Math.hypot(...objective(bank, input, u).grad)};
+}
+
+function evidenceFor(bank, input, type) {
+  const evidence = [];
+  for (const q of bank.core_scenes) {
+    const a = input.core?.[q.id];
+    if (a?.best === type) evidence.push({source: q.id, kind: 'core', text: q.options.find(o => o.type === type).text});
+  }
+  (input.adaptive ?? []).forEach((q, i) => {
+    const chosen = q.answer === 'a' ? q.a : q.answer === 'b' ? q.b : null;
+    if (chosen === type) evidence.push({source: `A${i + 1}`, kind: q.format, comparedWith: chosen === q.a ? q.b : q.a});
+  });
+  return evidence;
+}
+
+export function analyze(bank, rawInput, seed, {computeSensitivity = true} = {}) {
+  const input = copyInput(rawInput), fit = estimate(bank, input, seed);
+  const winner = fit.ranking[0].type;
+  const validCore = bank.core_scenes.filter(q => input.core[q.id] != null);
+  const nAdaptive = input.adaptive.length;
+  const decisiveAdaptive = input.adaptive.filter(q => q.answer === 'a' || q.answer === 'b').length;
+  let retention = null;
+  // This is CONDITIONAL score sensitivity: routing is held fixed, not a test-retest reliability estimate.
+  if (computeSensitivity && validCore.length) {
+    let retained = 0;
+    for (const q of validCore) {
+      const core = {...input.core}; delete core[q.id];
+      const leaveOut = estimate(bank, {...input, core}, seed);
+      if (leaveOut.ranking[0].type === winner && leaveOut.ranking[0].score - leaveOut.ranking[1].score > bank.parameters.tie_epsilon) retained++;
+    }
+    retention = retained / validCore.length;
+  }
+  let leadersStable = false;
+  if (nAdaptive >= 2) {
+    const leaders = [nAdaptive - 2, nAdaptive - 1, nAdaptive].map(n => estimate(bank, {...input, adaptive: input.adaptive.slice(0, n)}, seed).ranking[0].type);
+    leadersStable = leaders.every(t => t === winner);
+  }
+  const evidence = Object.fromEntries(bank.types.map(t => [t.code, evidenceFor(bank, input, t.code)]));
+  const margin = fit.ranking[0].score - fit.ranking[1].score;
+  const p = bank.parameters;
+  const eligible = validCore.length >= p.min_valid_core && decisiveAdaptive >= 1;
+  const focused = eligible && nAdaptive >= 2 && leadersStable && margin >= p.clear_margin &&
+    retention !== null && retention >= p.loo_retention && evidence[winner].length >= p.min_support_contexts && evidence[winner].some(e => e.kind === 'core');
+  const second = fit.ranking[1].type;
+  const dual = eligible && !focused && margin < p.clear_margin &&
+    fit.ranking[1].score - fit.ranking[2].score >= p.dual_third_margin && evidence[winner].length > 0 && evidence[second].length > 0;
+  const status = !eligible ? 'insufficient' : focused ? 'focused' : dual ? 'dual' : 'distributed';
+  const missingCore = bank.core_scenes.filter(q => input.core[q.id] === null).map(q => q.id);
+  return {...fit, traits: scoreTraits(bank, input), status, primary: focused ? winner : null,
+    candidates: fit.ranking.filter(x => evidence[x.type].length > 0).slice(0, dual ? 2 : 3).map(x => x.type),
+    margin, conditionalLeaveOneCoreOutRetention: retention, leadersStable, evidence,
+    nValidCore: validCore.length, nAdaptive, nDecisiveAdaptive: decisiveAdaptive, missingCore,
+    stop: nAdaptive >= bank.count.adaptive_max || focused,
+    warning: '未校准的探索结果；分差和留一题保留率不是准确率或真实人格概率。'};
+}
+
+function questionForPair(bank, a, b, format, seed, round) {
+  // Randomize A/B by session and round, while retaining explicit mapping for scoring.
+  if (hash(`${seed}|pair-order|${round}|${pairKey(a, b)}`) % 2) [a, b] = [b, a];
+  const specialized = bank.adaptive.contrasts.find(q => pairKey(q.a, q.b) === pairKey(a, b));
+  let stem, aText, bText, source;
+  if (format === 'contrast' && specialized) {
+    stem = specialized.stem; source = specialized.id;
+    aText = specialized.a === a ? specialized.a_text : specialized.b_text;
+    bText = specialized.a === b ? specialized.a_text : specialized.b_text;
+  } else {
+    const kind = format === 'behavior' ? 'behavior' : 'cost';
+    stem = bank.adaptive[`${kind}_stem`];
+    aText = bank.adaptive[`${kind}_options`][a]; bText = bank.adaptive[`${kind}_options`][b];
+    source = kind;
+  }
+  return {id: `A${round + 1}`, kind: 'adaptive', format, source, a, b, stem,
+    options: [{key:'a', text:aText}, {key:'b', text:bText}, {key:'equal', text:'两者差不多'}, {key:'neither', text:'都不符合／无从判断'}]};
+}
+
+export function nextAdaptive(bank, input, seed) {
+  const analysis = analyze(bank, input, seed);
+  const history = input.adaptive ?? [], round = history.length;
+  if (round >= 2 && analysis.stop) return null;
+  const codes = analysis.ranking.map(x => x.type), lead = codes[0];
+  const used = new Set(history.map(q => `${pairKey(q.a, q.b)}|${q.format}`));
+  const allSeen = new Set(history.flatMap(q => [q.a, q.b]));
+  const available = (b, f) => !used.has(`${pairKey(lead, b)}|${f}`);
+  let challenger, format;
+  if (round === 0) { challenger = codes[1]; format = 'contrast'; }
+  else if (round === 1) { challenger = codes.slice(1).find(t => !allSeen.has(t)); format = 'behavior'; }
+  else {
+    // Recheck the closest live alternative in a NEW format; all 16 remain eligible.
+    challenger = codes.slice(1).find(t => available(t, 'behavior') || available(t, 'contrast'));
+    if (challenger) format = available(challenger, 'behavior') ? 'behavior' : 'contrast';
+  }
+  if (!challenger || !format) return null;
+  return questionForPair(bank, lead, challenger, format, seed, round);
+}
+
+/** undefined means not yet answered; null means intentionally skipped. */
+export function nextQuestion(bank, input, seed) {
+  assertSeed(seed); validate(bank, input);
+  for (const q of bank.anchors) {
+    if (!Object.prototype.hasOwnProperty.call(input.anchors ?? {}, q.id)) return {...q, kind: 'anchor', responseLabels: bank.instructions.anchor_response};
+  }
+  for (const id of bank.core_order) {
+    if (!Object.prototype.hasOwnProperty.call(input.core ?? {}, id)) {
+      const q = bank.core_scenes.find(q => q.id === id);
+      const options = [...q.options].sort((a, b) => hash(`${seed}|${id}|${a.id}`) - hash(`${seed}|${id}|${b.id}`));
+      return {...q, kind: 'core', options};
+    }
+  }
+  return nextAdaptive(bank, input, seed);
+}

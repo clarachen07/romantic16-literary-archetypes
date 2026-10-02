@@ -1,0 +1,18 @@
+{
+  "description": "ROMANTIC16 literary archetype exploration - WeChat Mini Program",
+  "miniprogramRoot": "miniprogram/",
+  "compileType": "miniprogram",
+  "appid": "",
+  "projectname": "romantic16",
+  "libVersion": "3.8.2",
+  "setting": {
+    "urlCheck": true,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true,
+    "minifyWXSS": true,
+    "minifyWXML": true
+  },
+  "packOptions": {"ignore": [], "include": []}
+}

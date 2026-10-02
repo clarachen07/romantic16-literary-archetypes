@@ -1,0 +1,14 @@
+{
+  "pages": ["pages/index/index", "pages/quiz/quiz", "pages/result/result", "pages/poster/poster"],
+  "window": {
+    "navigationBarTitleText": "ROMANTIC16",
+    "navigationBarBackgroundColor": "#f5eae8",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f5eae8",
+    "backgroundTextStyle": "dark"
+  },
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents",
+  "sitemapLocation": "sitemap.json",
+  "__usePrivacyCheck__": true
+}

@@ -1,0 +1,19 @@
+<view class="page">
+  <view wx:if="error" class="panel error"><view>{{error}}</view><button class="primary" bindtap="home">返回首页</button></view>
+  <view wx:elif="report" class="panel result-panel">
+    <view class="eyebrow">你的文学人格画像</view><view wx:if="report.code" class="result-code">{{report.code}}</view><view class="result-title serif">{{report.title}}</view><view class="result-intro muted">{{report.intro}}</view>
+    <view wx:if="report.status === 'insufficient'" class="insufficient"><view class="serif">这一次，不急着替你定型</view><view class="muted">你完成了 {{report.nValidCore}} / 8 个有效情境。可以返回补充，也可以保留这份不确定。</view></view>
+    <view wx:for="{{report.profiles}}" wx:key="code" class="profile">
+      <view class="portrait"><image src="{{item.image}}" mode="widthFix" class="portrait-image"/><text>原创意象插画 · 非原著插图</text></view>
+      <view class="profile-copy"><view class="result-code">{{item.code}}</view><view class="profile-name serif">{{item.name}}</view><view class="figure muted">{{item.figure}} · {{item.work}}</view><view class="quote serif">“{{item.quote}}”</view><view>{{item.essence}}</view><view class="story muted">{{item.story}}</view></view>
+    </view>
+    <view wx:if="report.profiles.length" class="report">
+      <view class="section"><view class="section-title serif">这份判断从哪里来</view><view wx:for="{{report.evidence}}" wx:key="*this" class="evidence muted">· {{item}}</view><view wx:if="!report.evidence.length" class="muted">你的有效选择分散在不同候选上，没有足够集中的单项依据。</view></view>
+      <view class="section"><view class="section-title serif">你表达这种动机的方式</view><view class="muted">{{report.expression}}</view></view>
+      <view class="section"><view class="section-title serif">{{report.status === 'dual' ? '两种动机如何共存' : '与相邻原型的区别'}}</view><view class="muted">{{report.comparison}}</view></view>
+      <view class="section cost"><view class="section-title serif">可能的代价</view><view wx:for="{{report.costs}}" wx:key="*this" class="muted cost-item">{{item}}</view><view class="caution">这是反思提示，不是对你一定如此的断言。</view></view>
+    </view>
+    <view class="disclaimer muted">这是未校准的文学原型探索结果，不是诊断、概率或对人格高低的评价。</view>
+    <view class="button-stack"><button class="primary" bindtap="poster" hover-class="pressed">分享人格画像</button><button class="secondary" bindtap="edit" hover-class="pressed">← 返回修改</button><button class="text-button" bindtap="restart">重新翻开问卷</button></view>
+  </view><view class="privacy">答案仅保存在本机，不上传。</view>
+</view>

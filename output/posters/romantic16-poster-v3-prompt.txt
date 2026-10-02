@@ -1,0 +1,4 @@
+Tool: built-in image_gen
+Input: romantic16-4x4-poster-v2.png
+
+Edit only the bottom footer of this poster: erase ALL Chinese text BELOW the 4x4 card grid (below about 95.5% height), including center “16种原型 · 16种看世界的方式” and “文学人格探索”, bottom-left “文学 / 照亮生活”, and bottom-right “故事不止 / 人生亦可不同”. Replace only those letter areas with seamless matching ivory paper background. Preserve footer leaf and book illustrations. Keep all sixteen character cards, every name/code/description/caption within the cards, the top header, all colors, layout and image dimensions unchanged. The top subtitle was already removed: keep that area blank. Do not rearrange, crop, add text, or change anything else.

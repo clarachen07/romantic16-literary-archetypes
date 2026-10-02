@@ -1,0 +1,16 @@
+PASS all 16 types have exactly two core exposures; graph is connected
+PASS empty responses are uninformative, zero scores
+PASS reverse scoring and missing values
+PASS best/worst cannot be the same or outside the block
+PASS analytic gradient matches central finite differences
+PASS optimizer converges and utilities sum to zero
+PASS traits do not secretly change literary motive classification
+PASS neither adds no utility evidence
+PASS choosing A increases A-minus-B utility
+PASS routing starts at anchors and skip advances the item
+PASS second adaptive item introduces an unseen challenger
+PASS complete neutral/skipped case has no manufactured primary type
+PASS all 120 type pairs have complete fallback wording
+PASS 100 synthetic paths stop at 25–27 answers without duplicate pair-format
+
+14 engineering checks passed. No human psychometric validity has been tested.

@@ -1,0 +1,12 @@
+<view class="page poster-page">
+  <view class="poster-heading"><view class="eyebrow">ROMANTIC16</view><view class="poster-title serif">把你的故事，分享出去</view></view>
+  <view wx:if="generating" class="panel loading"><view class="serif">正在绘制你的文学画像…</view><view class="muted">插画与二维码会一起放入海报。</view></view>
+  <view wx:elif="error" class="panel error"><view>{{error}}</view><button class="primary" bindtap="generate">重新生成海报</button></view>
+  <image wx:elif="posterPath" class="poster-image" src="{{posterPath}}" mode="widthFix" bindtap="preview" show-menu-by-longpress="{{true}}" aria-label="文学人格画像海报，底部附问卷二维码"/>
+  <view wx:if="posterPath" class="button-stack actions"><button class="primary" bindtap="share" disabled="{{!!action}}" loading="{{action === 'share'}}" hover-class="pressed">分享图片给微信好友</button><button class="secondary" bindtap="save" disabled="{{!!action}}" loading="{{action === 'save'}}" hover-class="pressed">保存到手机相册</button><button class="text-button" open-type="share">邀请好友来做问卷</button></view>
+  <view wx:if="message" class="message" aria-role="status">{{message}}</view>
+  <view class="privacy"><view>海报在本机生成，不上传答案。</view><view>首次保存需同意隐私指引并允许相册写入。</view></view>
+  <view class="qr-note muted">海报二维码打开公开网页版；“邀请好友”打开小程序首页。</view>
+  <canvas type="2d" id="poster-canvas" class="poster-canvas"></canvas>
+  <view wx:if="showPrivacy" class="privacy-mask" catchtouchmove="stopTouch"><view class="privacy-card"><view class="serif privacy-title">保存海报前，请确认</view><view>仅在你点击保存时，将这张海报写入手机相册；不会读取相册中的其他照片。答题记录留在本机，不上传。</view><button class="text-button contract" bindtap="openPrivacy">阅读《{{privacyName}}》</button><view class="button-stack"><button id="agree-privacy" open-type="agreePrivacyAuthorization" bindagreeprivacyauthorization="agreePrivacy" class="primary">同意并继续保存</button><button class="text-button" bindtap="declinePrivacy">暂不保存</button></view></view></view>
+</view>

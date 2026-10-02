@@ -1,0 +1,10 @@
+{
+  "name": "romantic16-miniprogram",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "sync": "node scripts/sync-data.mjs",
+    "test": "node tests/check.mjs",
+    "package": "node scripts/package.mjs"
+  }
+}
